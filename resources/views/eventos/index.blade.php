@@ -1,115 +1,32 @@
-<!DOCTYPE html>
-<html lang="es">
+<x-layout title="Eventos">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <h1 class="mb-6 text-2xl font-bold">
+        Cartelera de eventos
+    </h1>
 
-    <title>Eventos App</title>
+    @foreach ($eventos as $evento)
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+        <x-evento-card
+            :titulo="$evento['titulo']"
+            :fecha="$evento['fecha']"
+            :lugar="$evento['lugar']"
+            :destacado="$evento['destacado']"
+            class="mb-4"
+        >
 
-<body class="bg-slate-50">
+            <x-slot:badge>
+                <x-badge :categoria="$evento['categoria']" />
+            </x-slot:badge>
 
-    <!-- NAVBAR -->
-    <nav class="bg-white border-b border-slate-200">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-
-            <a href="/eventos"
-               class="text-lg font-bold text-slate-900">
-                eventos-app
-            </a>
-
-            <div class="hidden sm:flex items-center gap-6 text-sm text-slate-600">
-                <a href="/eventos"
-                   class="transition-colors hover:text-blue-600 focus:text-blue-600">
-                    Inicio
-                </a>
-
-                <a href="/eventos"
-                   class="transition-colors hover:text-blue-600 focus:text-blue-600">
-                    Eventos
-                </a>
-
-                <a href="/practica-ui"
-                   class="transition-colors hover:text-blue-600 focus:text-blue-600">
-                    Práctica
-                </a>
-            </div>
-
-            <button class="sm:hidden text-slate-600">
-                Menú
-            </button>
-
-        </div>
-    </nav>
-
-
-    <!-- EVENTOS -->
-    <main class="max-w-6xl mx-auto px-4 py-8">
-
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-slate-900">
-                Próximos eventos
-            </h1>
-
-            <p class="mt-2 text-slate-500">
-                Eventos tecnológicos y académicos de la UATF.
-            </p>
-        </div>
-
-
-        <!-- GRID -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            @foreach ($eventos as $evento)
-
+            <x-slot:footer>
                 <a href="#"
-                   class="group block bg-white rounded-xl shadow-md p-6 transition hover:shadow-lg">
-
-                    <!-- TIPO -->
-                    <span class="inline-block text-xs font-semibold
-                                 text-blue-600 bg-blue-50
-                                 px-2 py-1 rounded">
-                        {{ $evento['tipo'] }}
-                    </span>
-
-
-                    <!-- TITULO -->
-                    <h3 class="mt-3 text-lg font-bold text-slate-900
-                               transition-colors group-hover:text-blue-600">
-                        {{ $evento['titulo'] }}
-                    </h3>
-
-
-                    <!-- LUGAR Y FECHA -->
-                    <p class="mt-1 text-sm text-slate-500">
-                        {{ $evento['lugar'] }} · {{ $evento['fecha'] }}
-                    </p>
-
-
-                    <!-- DESCRIPCIÓN -->
-                    <p class="mt-3 text-sm text-slate-600">
-                        Evento académico relacionado con tecnología,
-                        desarrollo web e informática.
-                    </p>
-
-
-                    <!-- ENLACE -->
-                    <span class="mt-4 inline-block text-sm text-slate-400
-                                 group-hover:text-blue-500">
-                        Ver más →
-                    </span>
-
+                   class="text-sm font-medium text-blue-600 hover:underline">
+                    Ver detalle →
                 </a>
+            </x-slot:footer>
 
-            @endforeach
+        </x-evento-card>
 
-        </div>
+    @endforeach
 
-    </main>
-
-</body>
-
-</html>
+</x-layout>
